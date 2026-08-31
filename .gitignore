@@ -1,0 +1,12 @@
+# Local Nix/direnv state.
+.direnv/
+
+# Rust build output.
+target/
+
+# Bazel convenience symlinks.
+/bazel-*
+
+# Transient files and directories.
+*.local.*
+_local/

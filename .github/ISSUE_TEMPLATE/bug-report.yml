@@ -1,0 +1,71 @@
+name: Bug report
+description: Report a reproducible, user-visible problem with OpenKache.
+title: "[Bug]: "
+labels:
+  - bug
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping improve OpenKache.
+
+        Do not include credentials, tokens, private keys, customer data, or other secrets. For a security vulnerability, [email the security contact privately](mailto:security@openstd.com) instead of opening a public issue.
+  - type: textarea
+    id: observable_problem
+    attributes:
+      label: Observable problem
+      description: What user-visible behavior is wrong? Include the command, API, or response that demonstrates the problem.
+      placeholder: Describe what happened and who or what was affected.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction_steps
+    attributes:
+      label: Steps to reproduce
+      description: Give the smallest deterministic sequence that reproduces the problem. Redact sensitive values from commands and output.
+      placeholder: |
+        1. Start OpenKache with ...
+        2. Send ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected_behavior
+    attributes:
+      label: Expected behavior
+      description: What should have happened instead?
+      placeholder: Describe the expected response or result.
+    validations:
+      required: true
+  - type: textarea
+    id: actual_behavior
+    attributes:
+      label: Actual behavior
+      description: What happened, including relevant errors or response details?
+      placeholder: Describe the observed response or result.
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Include the OpenKache version, OS and architecture, deployment mode, client, and relevant configuration. Say "unknown" or "not applicable" where needed.
+      placeholder: |
+        - OpenKache version:
+        - OS and architecture:
+        - Deployment mode:
+        - Client and version:
+        - Relevant configuration:
+  - type: textarea
+    id: logs
+    attributes:
+      label: Logs or additional context
+      description: Add focused logs, traces, or screenshots that help diagnose the problem. Remove secrets and personal or customer data first.
+      placeholder: Paste redacted output or link to a safe-to-share example.
+  - type: checkboxes
+    id: safe_to_share
+    attributes:
+      label: Safe to share
+      options:
+        - label: I have removed credentials, tokens, private keys, customer data, and other sensitive information.
+          required: true

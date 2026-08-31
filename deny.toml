@@ -1,0 +1,66 @@
+# Dependency policy for the OpenKache workspace.
+#
+# The public server is AGPL-licensed, so AGPL expressions are allowed for
+# server code and dependencies. Every other license, source, or native build
+# exception must be added deliberately and reviewed with the dependency that
+# needs it.
+
+[graph]
+# Check optional server features as well as the default build profile.
+all-features = true
+
+[advisories]
+# A yanked release is not an acceptable locked dependency.
+yanked = "deny"
+
+[bans]
+# Cargo manifests use wildcard requirements; Cargo.lock remains the version
+# pin. Duplicate transitive versions are reported so they can be consolidated
+# when practical without blocking semver-major server dependencies.
+multiple-versions = "warn"
+wildcards = "allow"
+
+# Language-binding and C++ bridge crates are outside the public server
+# boundary. The server's AWS-LC TLS provider is the only native build-system
+# exception and is scoped to its exact locked helper versions and wrapper.
+deny = [
+  { name = "napi" },
+  { name = "napi-derive" },
+  { name = "cxx" },
+  { name = "cxxbridge" },
+  { name = "bindgen" },
+  { name = "cmake", version = "=0.1.58", wrappers = ["aws-lc-sys"] },
+  { name = "pkg-config", version = "=0.3.33", wrappers = ["aws-lc-sys"] },
+  { name = "vcpkg" },
+]
+
+[sources]
+# Dependencies must come from crates.io or a specifically reviewed Git source.
+unknown-registry = "deny"
+unknown-git = "deny"
+allow-registry = ["https://github.com/rust-lang/crates.io-index"]
+allow-git = []
+
+[licenses]
+version = 2
+allow = [
+  "0BSD",
+  "AGPL-3.0-only",
+  "AGPL-3.0-or-later",
+  "Apache-2.0",
+  "Apache-2.0 WITH LLVM-exception",
+  "BSD-2-Clause",
+  "BSD-3-Clause",
+  "CC0-1.0",
+  "ISC",
+  "MIT",
+  "MIT-0",
+  "Unicode-3.0",
+  "Unlicense",
+  "Zlib",
+]
+
+# Public workspace crates are reviewed and licensed; do not hide their
+# licenses behind the private-workspace exemption.
+[licenses.private]
+ignore = false
